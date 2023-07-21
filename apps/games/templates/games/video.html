@@ -79,7 +79,7 @@
 	<!-- header section end -->
   <!-- video section start -->
   <main>
-    <form action="/games/shop/" class="card" method="post">
+    <form action="/games/shop/" class="card" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="form__content">
         <h1 class="title">Create new game!</h1>
@@ -89,6 +89,7 @@
             <input type="text" placeholder="Price" name="price" id="price">
             <input type="date" placeholder="Datetime" name="datetime_created" id="date">
             <input type="text" placeholder="Company" name="company" id="company">
+            <input type="file" name="main_imgor" id="main_imgor">
           </div>
           <div class="genres__chouse">
             {% for g in genres %}

@@ -97,9 +97,9 @@
                         <!-- START: Product Photos -->
                         <div class="nk-popup-gallery">
                             <div class="nk-gallery-item-box">
-                                <a href="/static/images/product-6.jpg" class="nk-gallery-item" data-size="1200x554">
+                                <a href="/static/images/jpgproduct-6." class="nk-gallery-item" data-size="1200x554">
                                     <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
-                                    <img src="/static/images/product-6-lg.jpg" alt="">
+                                    <img src="{{igor.main_imgor.url}}" alt="">
                                 </a>
                             </div>
 
@@ -279,11 +279,11 @@
                                 <!-- START: Review -->
                                 <div class="nk-comment">
                                     <div class="nk-comment-meta">
-                                        <img src="/static/images/avatar-2.jpg" alt="Witch Murder" class="rounded-circle" width="35"> by <a href="#">{{comment.user}}</a> in 20 September, 2018
+                                        <img src="/static/images/avatar-2.jpg" alt="Witch Murder" class="rounded-circle" width="35"> by <a href="#">{{i.user}}</a> in 20 September, 2018
                                         <div class="nk-review-rating" data-rating="4.5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i></div>
                                     </div>
                                     <div class="nk-comment-text">
-                                        <p>{{comment.text}}</p> 
+                                        <p>{{i.text}}</p> 
                                     </div>
                                 </div>
                                 {% endfor %}

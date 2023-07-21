@@ -1,3 +1,5 @@
+import uuid
+
 # Django
 from django.shortcuts import render
 from django.http.request import HttpRequest
@@ -5,9 +7,12 @@ from django.http.response import HttpResponse
 from django.db.models.query import QuerySet
 from django.views import View
 from django.db.models.functions import Lower
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 
 # Local
-from .models import Game, Genre, Company, Comment, User
+from .models import Game, Genre, Company, Comment, User, Screenshots
 
 class MainView(View):
     
@@ -34,6 +39,11 @@ class GameListView(View):
         )
     def post(self, request: HttpResponse) -> HttpResponse:
         data: dict = request.POST
+        files: dict = request.FILES
+        image: InMemoryUploadedFile = None
+        if files !={}:
+            image=files.get('main_imgor')
+            image.name = f'{uuid.uuid1()}.png'
         try:
             company: Company = Company.objects.annotate(
                 lower_igor = Lower('name')
@@ -46,7 +56,8 @@ class GameListView(View):
             name=data.get('name'),
             price=float(data.get('price')),
             datetime_created = data.get('datetime_created'),
-            company = company
+            company = company,
+            main_imgor=image
         )
         key: str
         for key in data:
@@ -60,13 +71,13 @@ class GameListView(View):
 
 class GameView(View):
     def get(self, request: HttpRequest, game_id: int) -> HttpResponse:
-        all_comments: QuerySet[Comment] = Comment.objects.all()
         try:
             game: Game = Game.objects.get(id=game_id)
         except Game.DoesNotExist as e:
             return HttpResponse(
             f'<h1>Игры с id {game_id} не существует!</h1>'
         )
+        all_comments: QuerySet[Comment] = Comment.objects.all()
         return render(
         request=request,
         template_name='games/store-product.html',

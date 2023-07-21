@@ -43,6 +43,11 @@ class Genre(models.Model):
         return self.name
 
 
+class Screenshots(models.Model):
+    verbose_name='изображение',
+    image = models.ImageField(upload_to='screenshots/'),
+    default='games/unknown.png'
+
 class Game(models.Model):
     """Game from steam."""
 
@@ -70,10 +75,15 @@ class Game(models.Model):
         to=Genre,
         related_name='games'
     )
-    imgor = models.ImageField(
+    main_imgor = models.ImageField(
         verbose_name='изображение',
         upload_to='games/',
         default='games/unknown.png'
+    )
+    screenshots= models.ManyToManyField(
+        verbose_name='скриншоты',
+        to=Screenshots,
+        related_name='screenshots_games'
     )
 
     class Meta:
